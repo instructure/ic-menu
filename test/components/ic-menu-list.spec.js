@@ -1,0 +1,13 @@
+//test('down selects next');
+//test('up selects previous');
+//test('loops to top');
+//test('loops to bottom');
+//test('focus trigger on escape key close');
+//test('focuses first item on open');
+//test('repositions when window resizes');
+//test('respects offset-x and offset-y');
+//test('collision detection');
+//test('collision detection');
+//test('positions when x/y change');
+//test('closes on focusOut');
+//test('appends to application root element');

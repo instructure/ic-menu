@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+  <title>Ember Addon Example</title>
+  <link rel="stylesheet" href="main.css" type="text/css">
+</head>
+<body>
+  <script>
+    require = {
+      baseUrl: '../bower_components',
+      packages: [
+        {name: 'app', location: '../app'},
+        {name: 'ic-menu', location: '../addon'}
+      ]
+    };
+  </script>
+  <script src="../bower_components/requirejs/require.js" data-main="app"></script>
+
