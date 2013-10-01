@@ -1,4 +1,16 @@
 module.exports = {
+
+  dist: {
+    files: [
+      {
+        expand: true,
+        cwd: '.',
+        src: 'lib/**/*.hbs',
+        dest: 'dist'
+      }
+    ]
+  },
+
   vendor: {
     files: [
       {
@@ -9,6 +21,7 @@ module.exports = {
       }
     ]
   },
+
   html: {
     files: [
       {

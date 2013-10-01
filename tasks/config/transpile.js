@@ -1,5 +1,19 @@
 // must come after copy
 module.exports = {
+
+  dist: {
+    anonymous: true,
+    type: 'amd',
+    files: [
+      {
+        expand: true,
+        cwd: '.',
+        src: ['main.js', 'lib/**/*.js'],
+        dest: 'dist'
+      }
+    ]
+  },
+
   addon: {
     anonymous: true,
     type: 'amd',
