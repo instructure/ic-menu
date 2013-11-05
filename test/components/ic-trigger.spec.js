@@ -1,5 +1,3 @@
-import App from 'app';
-
 module('IcMenuTriggerComponent', {
   setup: function() {
     App.reset();

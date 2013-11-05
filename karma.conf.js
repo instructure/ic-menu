@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Mon Sep 16 2013 23:50:00 GMT-0600 (MDT)
+// Generated on Mon Oct 21 2013 13:03:31 GMT-0600 (MDT)
 
 module.exports = function(config) {
   config.set({
@@ -9,20 +9,24 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    frameworks: ['qunit', 'requirejs'],
+    frameworks: ['qunit'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      '.build/main.css',
-      {pattern: '.build/**/*.js', included: false},
-      'test/main.js'
+      'bower_components/jquery/jquery.js',
+      'bower_components/handlebars/handlebars.js',
+      'bower_components/ember/ember.js',
+      'lib/**/*.js',
+      'test/support/**/*.js',
+      'test/app/**/*.js',
+      'test/**/*.spec.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-      
+
     ],
 
 
@@ -56,7 +60,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome', 'Firefox', 'Safari'],
+    browsers: ['Chrome'],
 
 
     // If browser does not capture in given timeout [ms], kill it

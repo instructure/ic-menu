@@ -1,24 +1,18 @@
 {
-  "name": "ic-menu",
-  "version": "0.0.1",
+  "name": "global-ember-addon",
+  "version": "0.0.0",
   "authors": [
     "Ryan Florence <rpflorence@gmail.com>"
   ],
-  "moduleType": [
-    {"type": "amd", "main": "dist/main.js"},
-    {"type": "es6", "main": "main.js"}
-  ],
+  "dependencies": {
+    "ember": "1.0.0"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "test"
-  ],
-  "dependencies": {
-    "ember": "~1.0.0"
-  },
-  "devDependencies": {
-    "requirejs": "~2.1.8"
-  }
+    "test",
+    "tests"
+  ]
 }
