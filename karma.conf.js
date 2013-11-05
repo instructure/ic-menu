@@ -17,7 +17,7 @@ module.exports = function(config) {
       'bower_components/jquery/jquery.js',
       'bower_components/handlebars/handlebars.js',
       'bower_components/ember/ember.js',
-      'lib/**/*.js',
+      'dist/main.js',
       'test/support/**/*.js',
       'test/app/**/*.js',
       'test/**/*.spec.js'

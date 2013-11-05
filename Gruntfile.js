@@ -3,6 +3,7 @@ var fs = require('fs');
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.initConfig({
     watch: {
@@ -36,14 +37,18 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['lib/**/*.js'],
-        dest: 'dist/x-foo.js'
-      },
+        dest: 'dist/main.js'
+      }
+    },
+    clean: {
+      dist: ['dist']
     }
   });
-  grunt.registerTask('default', ['emberTemplates', 'watch']);
-  grunt.registerTask('dist', ['emberTemplates', 'concat'], function() {
-    var src = fs.readFileSync('dist/x-foo.js').toString();
-    fs.writeFileSync('dist/x-foo.amd.js', "define(['ember'], function(Ember) {\n"+src+"\n  return ns;\n});");
+  grunt.registerTask('amd', 'wrap dist in amd', function() {
+    var src = fs.readFileSync('dist/main.js').toString();
+    fs.writeFileSync('dist/main.amd.js', "define(['ember'], function(Ember) {\n"+src+"\n  return ic;\n});");
   });
+  grunt.registerTask('dist', ['clean', 'emberTemplates', 'concat', 'amd']);
+  grunt.registerTask('default', ['dist', 'watch']);
 };
 
