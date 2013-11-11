@@ -8,15 +8,16 @@ ic.MenuItemComponent = Ember.Component.extend({
 
   role: 'menuitem',
 
-  attributeBindings: ['tabIndex'],
+  attributeBindings: ['tabindex'],
 
-  tabIndex: -1,
+  tabindex: -1,
 
   focused: false,
 
   click: function() {
     this.get('parentView').close();
     Ember.run.next(this, function() {
+      this.get('parentView').focusTrigger();
       this.sendAction('on-select', this);
     });
   },
@@ -57,10 +58,6 @@ window.ic = window.ic || {};
 
 ic.MenuListComponent = Ember.Component.extend({
 
-  ___: function() {
-    console.log('ic-menu-list');
-  }.on('init'),
-
   tagName: 'ul',
 
   role: 'menu',
@@ -69,16 +66,18 @@ ic.MenuListComponent = Ember.Component.extend({
 
   attributeBindings: [
     'ariaExpanded:aria-expanded',
-    'tabIndex'
+    'tabindex'
   ],
+
+  // so we can focus the menu manually and get "focusOut" to trigger without
+  // putting the menu in the tab-o-sphere
+  tabindex: -1,
 
   isOpen: false,
 
   ariaExpanded: function() {
     return this.get('isOpen')+''; // aria wants "true" and "false" as strings
   }.property('isOpen'),
-
-  tabIndex: -1,
 
   focusedItem: null,
 
@@ -128,10 +127,6 @@ ic.MenuListComponent = Ember.Component.extend({
 
   focusItemAtIndex: function(index) {
     var item = this.get('items').objectAt(index);
-    if (!item) {
-      // shouldn't ever happen but MATH ISNT ALWAYS EASY
-      return;
-    }
     this.focusItem(item);
   },
 
@@ -151,7 +146,6 @@ ic.MenuListComponent = Ember.Component.extend({
   },
 
   open: function() {
-    this.setPosition();
     this.set('isOpen', true);
   },
 
@@ -160,7 +154,7 @@ ic.MenuListComponent = Ember.Component.extend({
     this.set('focusedItem', null);
   },
 
- focusFirstItemOnOpen: function() {
+  focusFirstItemOnOpen: function() {
     if (!this.get('isOpen')) return;
     // wait for dom repaint so we can actually focus items
     Ember.run.next(this, function() {
@@ -179,46 +173,6 @@ ic.MenuListComponent = Ember.Component.extend({
     this.get('parentView').registerList(this);
   }.on('didInsertElement'),
 
-  positionOnWindowResize: function() {
-    // would like to use ember's automatically delegated events instead
-    var $window = Ember.$(window);
-    if (this.get('isOpen')) {
-      $window.on('resize.ic-menu-list', this.setPosition.bind(this));
-    } else {
-      $window.off('resize.ic-menu-list');
-    }
-  }.observes('isOpen'),
-
-  'offset-x': 0,
-
-  'offset-y': 0,
-
-  setPosition: function() {
-    this.$().css('visibility', 'hidden'); // prevent flash
-    // wait for browser layout so we can measure elements for collision detection
-    Ember.run.next(this, function() {
-      var triggerRect = this.get('parentView.listTrigger.element').getBoundingClientRect();
-      var listRect = this.get('element').getBoundingClientRect();
-      var x = triggerRect.left;
-      var potentialRightBound = triggerRect.left + listRect.width;
-      if (potentialRightBound > window.innerWidth) {
-        x = triggerRect.left - (potentialRightBound - window.innerWidth)
-      }
-      x = x + parseInt(this.get('offset-x'), 10);
-      var y = triggerRect.bottom + parseInt(this.get('offset-y'), 10);
-      this.set('x', x);
-      this.set('y', y);
-      this.$().css('visibility', '');
-    });
-  },
-
-  position: function() {
-    this.$().css({
-      left: parseInt(this.get('x'), 10),
-      top: parseInt(this.get('y'), 10)
-    });
-  }.observes('x', 'y'),
-
   focusOut: function(event) {
     // wait for activeElement to get set (I think?)
     Ember.run.next(this, function() {
@@ -226,15 +180,7 @@ ic.MenuListComponent = Ember.Component.extend({
         this.close();
       }
     });
-  },
-
-  // popovers are on the application root so it can popover any other element
-  appendToRootOnInsert: function() {
-    // there has to be a better way than this :\
-    var app = this.get('container').lookup('application:main')
-    var rootElement = Ember.$(app.get('rootElement'));
-    this.$().appendTo(rootElement.first());
-  }.on('didInsertElement')
+  }
 
 });
 
