@@ -7,13 +7,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.initConfig({
     watch: {
-      libTemplates: {
-        files: ['lib/templates/**/*.hbs'],
-        tasks: ['emberTemplates:lib']
-      },
       testTemplates: {
         files: ['test/**/*.hbs'],
         tasks: ['emberTemplates:test']
+      },
+      build: {
+        files: ['lib/**/*.js', 'lib/**/*.hbs'],
+        tasks: ['dist']
       }
     },
     emberTemplates: {
