@@ -5,7 +5,7 @@
     "Ryan Florence <rpflorence@gmail.com>"
   ],
   "dependencies": {
-    "ember": "1.0.0"
+    "ember": "1.2.0"
   },
   "license": "MIT",
   "ignore": [
@@ -14,5 +14,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "ember-template-compiler": "http://builds.emberjs.com/release/ember-template-compiler.js"
+  }
 }

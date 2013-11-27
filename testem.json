@@ -1,0 +1,12 @@
+{
+  "framework": "qunit",
+  "src_files": [
+    "bower_components/jquery/jquery.js",
+    "bower_components/handlebars/handlebars.js",
+    "bower_components/ember/ember.js",
+    "dist/main.js",
+    "test/support/**/*.js",
+    "test/**/*.spec.js"
+  ]
+}
+
