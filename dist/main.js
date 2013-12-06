@@ -105,13 +105,16 @@
       this.set('items', Ember.ArrayProxy.create({content: []}));
     }.on('init'),
 
+
     keyDown: function(event) {
-      // TODO: refactor this, every time I use switch I regret it, and now the
-      // preventDefaults are making me sad
-      switch (event.keyCode) {
-        case /*down*/   40: event.preventDefault(); this.focusNext(); break;
-        case /*up*/     38: event.preventDefault(); this.focusPrevious(); break;
-        case /*escape*/ 27: event.preventDefault(); this.focusTrigger(); break;
+      keysDict = {
+        40: this.focusNext,       /*down*/
+        38: this.focusPrevious,   /*up*/
+        27: this.focusTrigger     /*escape*/
+      };
+      if (keysDict.hasOwnProperty(event.keyCode)) {
+        event.preventDefault();
+        keysDict[event.keyCode].call(this)
       }
     },
 
@@ -195,9 +198,13 @@
 
     focusOut: function(event) {
       // wait for activeElement to get set (I think?)
-      Ember.run.next(this, function() {
-        if (!this.$().has(document.activeElement).length) {
-          this.close();
+      Ember.run.next(this, function(){
+        // gaurd against case where this.$() is undefinded.
+        // otherwise get random failures
+        if (this.$()) {
+          if (!this.$().has(document.activeElement).length) {
+            this.close();
+          }
         }
       });
     }
