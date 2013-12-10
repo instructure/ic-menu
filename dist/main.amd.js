@@ -3,13 +3,16 @@ window.ic = window.ic || {};
 
 ic.MenuItemComponent = Ember.Component.extend({
 
-  tagName: 'li',
+  tagName: 'ic-menu-item',
 
-  classNames: 'ic-menu-item',
+  // classNames: 'ic-menu-item',
 
   role: 'menuitem',
 
-  attributeBindings: ['tabindex'],
+  attributeBindings: [
+    'tabindex',
+    'role'
+  ],
 
   tabindex: -1,
 
@@ -67,7 +70,8 @@ ic.MenuListComponent = Ember.Component.extend({
 
   attributeBindings: [
     'ariaExpanded:aria-expanded',
-    'tabindex'
+    'tabindex',
+    'role'
   ],
 
   // so we can focus the menu manually and get "focusOut" to trigger without
@@ -192,11 +196,15 @@ ic.MenuTriggerComponent = Ember.Component.extend({
 
   tagName: 'button',
 
+  role: 'button',
+
   classNames: 'ic-menu-trigger',
 
   attributeBindings: [
     'ariaOwns:aria-owns',
-    'ariaHaspopup:aria-haspopup'
+    'ariaHaspopup:aria-haspopup',
+    'role',
+    'tabindex'
   ],
 
   ariaHaspopup: 'true',
@@ -247,6 +255,8 @@ ic.MenuTriggerComponent = Ember.Component.extend({
 window.ic = window.ic || {};
 
 ic.MenuComponent = Ember.Component.extend({
+
+  tagName: 'ic-menu',
 
   classNames: 'ic-menu',
 
