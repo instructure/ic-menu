@@ -39,6 +39,9 @@ ic.MenuItemComponent = Ember.Component.extend({
 
   focus: function() {
     this.set('focused', true);
+    if (!this.get('parentView').get('focusedItem') == this) {
+      this.$().focus();
+    }
     this.$().focus();
   },
 
