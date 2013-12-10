@@ -44,9 +44,9 @@ Development
 -----------
 
 1. Fork the repo
-2. Create a new branch for your feature/bug fix
-3. `grunt` to build and watch files.
-4. `karma start` in a new tab to run tests. Click "debug" to interact
-   with the code.
-5. Send a pull request.
+2. `npm install && bower install`
+3. Create a new branch for your feature/bug fix
+4. `grunt` to build and watch files.
+5. `testem` in a new tab to run tests.
+6. Send a pull request.
 
