@@ -13,11 +13,12 @@
 
     tagName: 'ic-menu-item',
 
-    role: 'menuitem',
-
     attributeBindings: [
-      'tabindex'
+      'tabindex',
+      'role'
     ],
+
+    role: 'menuitem',
 
     tabindex: -1,
 
@@ -86,7 +87,8 @@
 
     attributeBindings: [
       'ariaExpanded:aria-expanded',
-      'tabindex'
+      'tabindex',
+      'role'
     ],
 
     // so we can focus the menu manually and get "focusOut" to trigger without
@@ -231,13 +233,16 @@
 
     tagName: 'ic-menu-trigger',
 
-    tabindex: 0,
+    role: 'button',
 
     attributeBindings: [
-      'tabindex',
       'ariaOwns:aria-owns',
-      'ariaHaspopup:aria-haspopup'
+      'ariaHaspopup:aria-haspopup',
+      'role',
+      'tabindex'
     ],
+
+    tabindex: 0,
 
     ariaHaspopup: 'true',
 
