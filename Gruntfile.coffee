@@ -10,7 +10,7 @@ module.exports = (grunt) ->
         files: ['test/**/*.hbs']
         tasks: ['emberTemplates:test']
       build:
-        files: ['lib/{,*/}*.{js,hbs}', 'lib/main.js']
+        files: ['lib/**/*.{js,hbs}', 'lib/main.js']
         tasks: ['build']
 
     emberTemplates:

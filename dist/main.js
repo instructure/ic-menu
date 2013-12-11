@@ -11,27 +11,30 @@
 
   var MenuItemComponent = Ember.Component.extend({
 
-    classNames: 'ic-menu-item',
+    tagName: 'ic-menu-item',
 
     role: 'menuitem',
 
-    attributeBindings: ['tabindex'],
+    attributeBindings: [
+      'tabindex'
+    ],
 
     tabindex: -1,
 
     focused: false,
 
-    click: function() {
+    click: function(event) {
+      var wasKeyboard = !event.clientX && !event.clientY;
       this.get('parentView').close();
       Ember.run.next(this, function() {
-        this.get('parentView').focusTrigger();
+        if (wasKeyboard) { this.get('parentView').focusTrigger(); }
         this.sendAction('on-select', this);
       });
     },
 
     keyDown: function(event) {
       if (event.keyCode == 13 || event.keyCode == 32) {
-        this.click();
+        this.click(event);
       }
     },
 
@@ -79,7 +82,7 @@
 
     role: 'menu',
 
-    classNames: ['ic-menu-list'],
+    tagName: 'ic-menu-list',
 
     attributeBindings: [
       'ariaExpanded:aria-expanded',
@@ -219,11 +222,12 @@
 
   var MenuTriggerComponent = Ember.Component.extend({
 
-    tagName: 'button',
+    tagName: 'ic-menu-trigger',
 
-    classNames: 'ic-menu-trigger',
+    tabindex: 0,
 
     attributeBindings: [
+      'tabindex',
       'ariaOwns:aria-owns',
       'ariaHaspopup:aria-haspopup'
     ],
@@ -243,8 +247,12 @@
       this.closingClickStarted = true;
     },
 
+    click: Ember.aliasMethod('openList'),
+
     keyDown: function(event) {
       switch (event.keyCode) {
+        case 13 /*enter*/:
+        case 32 /*space*/:
         case 40 /*down*/:
         case 38 /*up*/: this.openList(event); break;
       }
@@ -290,7 +298,7 @@
 
   var MenuComponent = Ember.Component.extend({
 
-    classNames: 'ic-menu',
+    tagName: 'ic-menu',
 
     classNameBindings: ['isOpen:is-open:is-closed'],
 
@@ -327,21 +335,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<style>\n.ic-menu {\n  display: inline-block;\n}\n\n.ic-menu-list {\n  position: absolute;\n  display: none;\n}\n\n.ic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\n.ic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\n.ic-menu-item {\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\n.ic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n</style>\n\n");
-  
-});
-
-Ember.TEMPLATES["components/ic-menu-item"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
-
-
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n");
-  return buffer;
+  data.buffer.push("<style>\nic-menu {\n  display: inline-block;\n}\n\nic-menu-list {\n  position: absolute;\n  display: none;\n}\n\nic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\nic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\nic-menu-item {\n  display: block;\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\nic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n</style>\n\n");
   
 });
 
@@ -355,20 +349,6 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n");
-  return buffer;
-  
-});
-
-Ember.TEMPLATES["components/ic-menu-trigger"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
-
-
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n");
   return buffer;
   
 });
@@ -394,7 +374,8 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
       './components/ic-menu-item',
       './components/ic-menu-list',
       './components/ic-menu-trigger',
-      './components/ic-menu'
+      './components/ic-menu',
+      'ic-styled'
     ], function(Ember, Item, List, Trigger) {
       return factory(Ember, Item, List, Trigger, Menu);
     });
@@ -404,7 +385,8 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
       require('./components/ic-menu-item'),
       require('./components/ic-menu-list'),
       require('./components/ic-menu-trigger'),
-      require('./components/ic-menu')
+      require('./components/ic-menu'),
+      require('ic-styled')
     );
   } else {
     factory(
