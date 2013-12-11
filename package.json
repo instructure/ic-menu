@@ -1,22 +1,24 @@
 {
-  "name": "global-ember-addon",
+  "name": "ic-menu",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "testem ci"
   },
-  "author": "",
-  "license": "BSD",
+  "author": "Ryan Florence <rpflorence@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ember": "1.2.0",
+    "ic-styled": "~1.1.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-ember-templates": "~0.4.17",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-clean": "~0.5.0",
-    "testem": "~0.5.12"
-  },
-  "dependencies": {
+    "testem": "~0.5.12",
     "matchdep": "~0.3.0"
   }
 }
