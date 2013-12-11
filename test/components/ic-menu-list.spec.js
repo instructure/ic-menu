@@ -75,10 +75,10 @@ test('closes on focusOut', function() {
 });
 
 function assertSelected(position, message) {
-    var selectedId, positionId;
-    selectedId = find(':focus').attr('id');
-    positionId = find("#list1 .ic-menu-item" + position).attr('id')
-    equal(selectedId, positionId, message);
+  var selectedId, positionId;
+  selectedId = find(':focus').attr('id');
+  positionId = find("#list1 ic-menu-item" + position).attr('id')
+  equal(selectedId, positionId, message);
 }
 
 //test('repositions when window resizes');
