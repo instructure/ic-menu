@@ -7,7 +7,8 @@
       './lib/components/ic-menu-list',
       './lib/components/ic-menu-trigger',
       './lib/components/ic-menu',
-      'ic-styled'
+      'ic-styled',
+      './lib/templates'
     ], function(Ember, Item, List, Trigger, Menu) {
       return factory(Ember, Item, List, Trigger, Menu);
     });
@@ -18,7 +19,8 @@
       require('./lib/components/ic-menu-list'),
       require('./lib/components/ic-menu-trigger'),
       require('./lib/components/ic-menu'),
-      require('ic-styled')
+      require('ic-styled'),
+      require('./lib/templates')
     );
   } else {
     factory(
