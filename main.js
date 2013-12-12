@@ -3,21 +3,21 @@
   if (typeof define === 'function' && define.amd) {
     define([
       'ember',
-      './components/ic-menu-item',
-      './components/ic-menu-list',
-      './components/ic-menu-trigger',
-      './components/ic-menu',
+      './lib/components/ic-menu-item',
+      './lib/components/ic-menu-list',
+      './lib/components/ic-menu-trigger',
+      './lib/components/ic-menu',
       'ic-styled'
-    ], function(Ember, Item, List, Trigger) {
+    ], function(Ember, Item, List, Trigger, Menu) {
       return factory(Ember, Item, List, Trigger, Menu);
     });
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('ember'),
-      require('./components/ic-menu-item'),
-      require('./components/ic-menu-list'),
-      require('./components/ic-menu-trigger'),
-      require('./components/ic-menu'),
+      require('./lib/components/ic-menu-item'),
+      require('./lib/components/ic-menu-list'),
+      require('./lib/components/ic-menu-trigger'),
+      require('./lib/components/ic-menu'),
       require('ic-styled')
     );
   } else {
