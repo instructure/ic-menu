@@ -9,7 +9,7 @@
   "author": "Ryan Florence <rpflorence@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ember": "1.2.0",
+    "ember": ">= 1.2.0 < 2.0.0",
     "ic-styled": "~1.1.0"
   },
   "devDependencies": {
