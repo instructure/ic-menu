@@ -8,6 +8,11 @@ Installation
 
 `bower install ic-menu`
 
+Demo
+----
+
+[Demo JSBin](http://emberjs.jsbin.com/liwuqena/1/edit)
+
 Usage
 -----
 
