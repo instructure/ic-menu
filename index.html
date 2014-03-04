@@ -1,0 +1,41 @@
+<!doctype html public "display of affection">
+<meta charset="utf-8">
+<title>ic-tabs demo</title>
+
+<script type="text/x-handlebars">
+{{#ic-menu}}
+  {{#ic-menu-trigger tagName="button"}}Actions ▾{{/ic-menu-trigger}}
+  {{#ic-menu-list}}
+    {{#ic-menu-item on-select="remove"}}Remove{{/ic-menu-item}}
+    {{#ic-menu-item on-select="save"}}Save{{/ic-menu-item}}
+    {{#ic-menu-item on-select="copy"}}Copy{{/ic-menu-item}}
+  {{/ic-menu-list}}
+{{/ic-menu}}
+
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+</script>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/handlebars/handlebars.js"></script>
+<script src="bower_components/ember/ember.js"></script>
+<script src="bower_components/ic-styled/main.js"></script>
+<script src="bower_components/ic-menu/dist/main.js"></script>
+<script>
+  App = Ember.Application.create();
+  App.ApplicationController = Ember.Controller.extend({
+    actions: {
+      remove: function() {
+        alert('remove');
+      },
+      save: function() {
+        alert('save');
+      },
+      copy: function() {
+        alert('copy');
+      }
+    }
+  });
+</script>
+
