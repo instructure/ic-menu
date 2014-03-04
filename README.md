@@ -3,6 +3,11 @@ ic-menu
 
 An accessible menu component for ember applications.
 
+Demo
+----
+
+http://instructure.github.io/ic-menu/
+
 Installation
 ------------
 
