@@ -1,6 +1,7 @@
 <!doctype html public "display of affection">
 <meta charset="utf-8">
-<title>ic-tabs demo</title>
+<title>ic-actions demo</title>
+<style>body { font-family: sans-serif }</style>
 
 <script type="text/x-handlebars">
 {{#ic-menu}}
@@ -12,8 +13,16 @@
   {{/ic-menu-list}}
 {{/ic-menu}}
 
+<ul>
+  <li>Trigger is tabbable
+  <li>Once focused, space, enter, or down will all open the menu
+  <li>Arrow keys will navigate the menu
+  <li>Enter and space will select a focused item
+</ul>
+
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Typically a <select><option>select tag</option></select> won't "blur" an open menu
+  with most outerclick implementations, but it does with ic-menu :)
 </p>
 </script>
 
@@ -38,4 +47,5 @@
     }
   });
 </script>
+
 
