@@ -13,6 +13,7 @@ Ember.Component.reopen({
 });
 
 App.ApplicationController = Ember.Controller.extend({
+  useFirst: true,
   actions: {
     alert: function(item) {
       alert(item.$().text());

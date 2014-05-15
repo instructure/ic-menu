@@ -80,12 +80,55 @@ test('closes on focusOut', function() {
   });
 });
 
-function assertSelected(position, message) {
+test('keyboard selection works when items added / removed', function() {
+  visit('/');
+  click('#trigger-order');
+  appController = App.__container__.lookup('controller:application');
+  keyEvent('#list-order', 'keydown', 40);
+  keyEvent('#list-order', 'keydown', 40);
+  andThen(function() {
+    var message = 'selects last menu of three after two down arrows';
+    assertSelected(':last', message, '#list-order');
+  });
+});
+
+test('syncs items with child views', function() {
+  var menuList = App.__container__.lookup('component:ic-menu-list')
+  one = createMockMenuItem(1);
+  two = createMockMenuItem(2);
+  three = createMockMenuItem(3);
+  items = [one, three, two];
+  childViews = [one, two, three];
+  menuList.set('items', items);
+  menuList.set('childViews', childViews);
+  menuList.syncItemsWithChildViews();
+  secondItem = menuList.get('items').objectAt(1);
+  equal(secondItem, two, 'successfully re-orders based on childViews');
+
+});
+
+function createMockMenuItem(id) {
+  var item = Ember.Object.create({
+    $: function() {
+      return this.get('stub');
+    },
+    stub: {
+      attr: function(param) {
+        return id
+      }
+    }
+  });
+  return item;
+}
+
+function assertSelected(position, message, list) {
+  list = list || "#list1"
   var selectedId, positionId;
   selectedId = find(':focus').attr('id');
-  positionId = find("#list1 ic-menu-item" + position).attr('id')
+  positionId = find(list + " ic-menu-item" + position).attr('id')
   equal(selectedId, positionId, message);
 }
+
 
 //test('repositions when window resizes');
 //test('respects offset-x and offset-y');
