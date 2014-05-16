@@ -21,3 +21,8 @@ App.ApplicationController = Ember.Controller.extend({
   }
 });
 
+
+App.XSpacerComponent = Ember.Component.extend({
+  tagName: 'div',
+  style: 'height: 1px; background: grey'
+});
