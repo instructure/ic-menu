@@ -14,6 +14,22 @@
       {{#ic-menu-item on-select="alert"}}Save{{/ic-menu-item}}
     {{/ic-menu-list}}
   {{/ic-menu}}
+
+  {{#ic-menu id="menu-order" style="float: left;"}}
+    {{#ic-menu-trigger id="trigger-order" tagName="button"}}
+      Order Actions
+    {{/ic-menu-trigger}}
+    {{#ic-menu-list id="list-order"}}
+      {{#ic-menu-item on-select="alert"}}first{{/ic-menu-item}}
+      {{#if useFirst}}
+        {{#ic-menu-item on-select="alert"}}foo{{/ic-menu-item}}
+      {{else}}
+        {{#ic-menu-item on-select="alert"}}bar{{/ic-menu-item}}
+      {{/if}}
+      {{#x-spacer}}{{/x-spacer}}
+      {{#ic-menu-item on-select="alert"}}last{{/ic-menu-item}}
+    {{/ic-menu-list}}
+  {{/ic-menu}}
 </div>
 
 <div class="content">

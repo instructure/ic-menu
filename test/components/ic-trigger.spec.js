@@ -5,14 +5,22 @@ module('IcMenuTriggerComponent', {
 });
 
 test('opens and closes on click', function() {
-  click('#trigger1').then(function() {
+  visit('/');
+  click('#trigger1')
+  andThen(function() {
     ok(find('#list1').is(':visible'), 'list is visible');
-  }).then(function() {
-    return click('#trigger1');
-  }).then(function() {
+  });
+});
+
+test('closes on click, after already opened', function() {
+  visit('/');
+  click('#trigger1')
+  click('#trigger1')
+  wait().andThen(function() {
     ok(find('#list1').is(':hidden'), 'list is not visible');
   });
 });
+
 
 //test('opens and closes on enter');
 //test('opens and closes on space');

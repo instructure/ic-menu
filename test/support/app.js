@@ -13,6 +13,7 @@ Ember.Component.reopen({
 });
 
 App.ApplicationController = Ember.Controller.extend({
+  useFirst: true,
   actions: {
     alert: function(item) {
       alert(item.$().text());
@@ -20,3 +21,8 @@ App.ApplicationController = Ember.Controller.extend({
   }
 });
 
+
+App.XSpacerComponent = Ember.Component.extend({
+  tagName: 'div',
+  style: 'height: 1px; background: grey'
+});

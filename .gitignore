@@ -1,2 +1,3 @@
 test/support/templates.js
 !node_modules/grunt-es6-module-transpiler
+bower_components/

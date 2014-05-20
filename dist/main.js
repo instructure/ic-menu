@@ -162,12 +162,40 @@
       item.focus();
     },
 
+    itemsAsHash: function() {
+      var items = this.get('items');
+      var itemsHash = {};
+      items.forEach(function(item){
+        var id = item.$().attr('id');
+        itemsHash[id] = item;
+      });
+      return itemsHash;
+    },
+
+    syncItemsWithChildViews: function() {
+      var cv = this.get('childViews');
+      var itemsHash = this.itemsAsHash();
+      if (!cv) {
+        return;
+      }
+      var items = [];
+      cv.forEach(function(child) {
+        var id = child.$().attr('id');
+        if (itemsHash[id]) {
+          items.push(itemsHash[id]);
+        }
+      });
+      this.set('items', items);
+    },
+
     registerItem: function(item) {
       this.get('items').addObject(item);
+      Ember.run.debounce(this, this.syncItemsWithChildViews, 1)
     },
 
     deregisterItem: function(item) {
       this.get('items').removeObject(item);
+      Ember.run.debounce(this, this.syncItemsWithChildViews, 1)
     },
 
     open: function() {
@@ -358,7 +386,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<style>\nic-menu {\n  display: inline-block;\n}\n\nic-menu-list {\n  position: absolute;\n  display: none;\n}\n\nic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\nic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\nic-menu-item {\n  display: block;\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\nic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n</style>\n\n");
+  data.buffer.push("<style>\nic-menu {\n  display: inline-block;\n}\n\nic-menu-list {\n  position: absolute;\n  display: none;\n}\n\nic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\nic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\nic-menu-item {\n  display: block;\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\nic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n\nic-menu-item a {\n  color: inherit;\n  text-decoration: none;\n}\n</style>\n\n");
   
 });
 
