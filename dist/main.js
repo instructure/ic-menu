@@ -15,21 +15,32 @@
 
     attributeBindings: [
       'tabindex',
-      'role'
+      'role',
+      'aria-disabled'
     ],
 
     role: 'menuitem',
 
+    enabled: true,
+
     tabindex: -1,
 
     focused: false,
+
+    'aria-disabled': function() {
+      return !this.get('enabled') + ''; // coerce to ensure true || false
+    }.property('enabled'),
 
     click: function(event) {
       var wasKeyboard = !event.clientX && !event.clientY;
       this.get('parentView').close();
       Ember.run.next(this, function() {
         if (wasKeyboard) { this.get('parentView').focusTrigger(); }
-        this.sendAction('on-select', this);
+        if (this.get('enabled')) {
+          this.sendAction('on-select', this);
+        } else {
+          this.sendAction('on-disabled-select', this);
+        }
       });
     },
 
@@ -386,7 +397,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<style>\nic-menu {\n  display: inline-block;\n}\n\nic-menu-list {\n  position: absolute;\n  display: none;\n}\n\nic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\nic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\nic-menu-item {\n  display: block;\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\nic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n\nic-menu-item a {\n  color: inherit;\n  text-decoration: none;\n}\n</style>\n\n");
+  data.buffer.push("<style>\nic-menu {\n  display: inline-block;\n}\n\nic-menu-list {\n  position: absolute;\n  display: none;\n}\n\nic-menu-list[aria-expanded=\"true\"] {\n  display: block;\n}\n\nic-menu-list {\n  outline: none;\n  background: #fff;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);\n  list-style-type: none;\n  padding: 2px 0px;\n  font-family: \"Lucida Grande\", \"Arial\", sans-serif;\n  font-size: 12px;\n}\n\nic-menu-item {\n  display: block;\n  padding: 4px 20px;\n  cursor: default;\n  white-space: nowrap;\n}\n\n\nic-menu-item:focus {\n  background: #3879D9;\n  color: #fff;\n  outline: none;\n}\n\nic-menu-item[aria-disabled=\"true\"] {\n  color: #999;\n}\n\nic-menu-item[aria-disabled=\"true\"]:focus {\n  background: #ccc;\n  color: #000;\n}\n\nic-menu-item a {\n  color: inherit;\n  text-decoration: none;\n}\n</style>\n\n");
   
 });
 

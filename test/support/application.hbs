@@ -20,7 +20,11 @@
       Order Actions
     {{/ic-menu-trigger}}
     {{#ic-menu-list id="list-order"}}
-      {{#ic-menu-item on-select="alert"}}first{{/ic-menu-item}}
+      {{#ic-menu-item on-select="alert"
+                      enabled=false
+                      on-disabled-select='disabled'}}
+        first
+      {{/ic-menu-item}}
       {{#if useFirst}}
         {{#ic-menu-item on-select="alert"}}foo{{/ic-menu-item}}
       {{else}}
