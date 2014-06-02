@@ -80,31 +80,29 @@ test('closes on focusOut', function() {
   });
 });
 
-test('keyboard selection works when items added / removed', function() {
+test('keyboard selection works with initial conditional items', function() {
   visit('/');
   click('#trigger-order');
   appController = App.__container__.lookup('controller:application');
   keyEvent('#list-order', 'keydown', 40);
   keyEvent('#list-order', 'keydown', 40);
   andThen(function() {
-    var message = 'selects last menu of three after two down arrows';
-    assertSelected(':last', message, '#list-order');
+    assertSelected(':last', '', '#list-order');
   });
 });
 
-test('syncs items with child views', function() {
-  var menuList = App.__container__.lookup('component:ic-menu-list')
-  one = createMockMenuItem(1);
-  two = createMockMenuItem(2);
-  three = createMockMenuItem(3);
-  items = [one, three, two];
-  childViews = [one, two, three];
-  menuList.set('items', items);
-  menuList.set('childViews', childViews);
-  menuList.syncItemsWithChildViews();
-  secondItem = menuList.get('items').objectAt(1);
-  equal(secondItem, two, 'successfully re-orders based on childViews');
-
+test('keyboard selection works when items added / removed', function() {
+  visit('/');
+  click('#trigger-order');
+  appController = App.__container__.lookup('controller:application');
+  Ember.run(function() {
+    appController.set('useFirst', false);
+  });
+  keyEvent('#list-order', 'keydown', 40);
+  keyEvent('#list-order', 'keydown', 40);
+  andThen(function() {
+    assertSelected(':last', '', '#list-order');
+  });
 });
 
 function createMockMenuItem(id) {

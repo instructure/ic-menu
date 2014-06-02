@@ -173,14 +173,19 @@
     },
 
     syncItemsWithChildViews: function() {
-      var cv = this.get('childViews');
+      // this.get('childViews') doesn't seem to update as menu-items
+      // are added / removed. so resorting to pulling directly from DOM :/
+      if (!this.$()) {
+        return; // not in DOM
+      }
+      var cv = this.$().find('ic-menu-item').get();
       var itemsHash = this.itemsAsHash();
       if (!cv) {
         return;
       }
       var items = [];
       cv.forEach(function(child) {
-        var id = child.$().attr('id');
+        var id = this.$(child).attr('id');
         if (itemsHash[id]) {
           items.push(itemsHash[id]);
         }
