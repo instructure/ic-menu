@@ -17,6 +17,9 @@ App.ApplicationController = Ember.Controller.extend({
   actions: {
     alert: function(item) {
       alert(item.$().text());
+    },
+    disabled: function(item) {
+      alert('disabled');
     }
   }
 });
