@@ -26,9 +26,9 @@
         first
       {{/ic-menu-item}}
       {{#if useFirst}}
-        {{#ic-menu-item on-select="alert"}}foo{{/ic-menu-item}}
+        {{#ic-menu-item on-select="alert"}}useFirst: true{{/ic-menu-item}}
       {{else}}
-        {{#ic-menu-item on-select="alert"}}bar{{/ic-menu-item}}
+        {{#ic-menu-item on-select="alert"}}useFirst: false{{/ic-menu-item}}
       {{/if}}
       {{#x-spacer}}{{/x-spacer}}
       {{#ic-menu-item on-select="alert"}}last{{/ic-menu-item}}
