@@ -6,7 +6,7 @@
   ],
   "dependencies": {
     "ember": ">= 1.4.0 <= 1.5.1",
-    "ic-styled": "~1.1.0"
+    "ic-styled": "~1.1.6"
   },
   "license": "MIT",
   "ignore": [
