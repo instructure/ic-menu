@@ -1,10 +1,10 @@
 {
   "name": "ic-menu",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "testem ci"
+    "test": "testem ci -l chrome"
   },
   "author": "Ryan Florence <rpflorence@gmail.com>",
   "license": "MIT",
