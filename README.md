@@ -25,7 +25,7 @@ __application.hbs__
     {{#ic-menu-item on-select="remove"}}Remove{{/ic-menu-item}}
     {{#ic-menu-item on-select="save"
                     on-disabled-select="notifyDisabled"
-                    disabled=foo}}
+                    enabled=foo}}
       Save
     {{/ic-menu-item}}
   {{/ic-menu-list}}
