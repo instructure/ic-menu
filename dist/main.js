@@ -9,6 +9,8 @@
   }
 }(this, function(Ember) {
 
+  var forEach = Ember.EnumerableUtils.forEach;
+
   var MenuItemComponent = Ember.Component.extend({
 
     tagName: 'ic-menu-item',
@@ -31,8 +33,37 @@
       return !this.get('enabled') + ''; // coerce to ensure true || false
     }.property('enabled'),
 
+    _childIcSubMenu: function(){
+      var childViews = this.get('childViews');
+      return childViews && childViews.findBy('tagName', 'ic-menu');
+    },
+
+    closeSubMenu: function(){
+      var subMenu = this._childIcSubMenu();
+      if (subMenu){
+        subMenu.closeList();
+      }
+    },
+
+    openSubMenu: function(){
+      var subMenu = this._childIcSubMenu();
+      if (subMenu){
+        if (subMenu.get('isOpen')){
+          subMenu.closeList();
+          return false;
+        } else {
+          subMenu.openList();
+          return true;
+        }
+      }
+      return false;
+    },
+
     click: function(event) {
       var wasKeyboard = !event.clientX && !event.clientY;
+      // If opening a submenu, do nothing because we want the
+      // sub-menu to open and let events propogate from there
+      if (this.openSubMenu()) return;
       this.get('parentView').close();
       Ember.run.next(this, function() {
         if (wasKeyboard) { this.get('parentView').focusTrigger(); }
@@ -118,12 +149,16 @@
       this.set('items', Ember.ArrayProxy.create({content: []}));
     }.on('init'),
 
+    openSubMenu: function(){
+      this.get('focusedItem').openSubMenu();
+    },
 
     keyDown: function(event) {
       keysDict = {
         40: this.focusNext,       /*down*/
         38: this.focusPrevious,   /*up*/
-        27: this.focusTrigger     /*escape*/
+        27: this.focusTrigger     /*escape*/,
+        39: this.openSubMenu      /*right*/
       };
       if (keysDict.hasOwnProperty(event.keyCode)) {
         event.preventDefault();
@@ -219,6 +254,9 @@
     },
 
     close: function() {
+      this.get('items').forEach(function(item){
+        item.closeSubMenu();
+      });
       this.set('isOpen', false);
       this.set('focusedItem', null);
     },
@@ -323,6 +361,10 @@
         return this.closingClickStarted = false;
       }
       this.get('parentView').openList();
+      // Prevent the click from propogating to the menu-item since the
+      // logic will be wrong. E.g. the menu will be open and the menu-item
+      // will close its sub-menu
+      return false;
     },
 
     click: Ember.aliasMethod('openList'),
@@ -377,6 +419,10 @@
 
     openList: function() {
       this.get('list').open();
+    },
+
+    closeList: function(){
+      this.get('list').close();
     }
 
   });
